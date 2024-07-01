@@ -31,49 +31,50 @@ class _HomeScreenState extends State<HomeScreen> {
       home: BlocProvider.value(
         value: friendBloc,
         child: Scaffold(
-            appBar: AppBar(
-              title: !isSearch ? const Text("Friends List") : null,
-              backgroundColor: Colors.grey[400],
-              actions: [
-                if (isSearch) ...[
-                  const Icon(
-                    Icons.person,
-                    size: 35,
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  const Search()
-                ],
-                IconButton(
-                  icon: !isSearch
-                      ? const Icon(Icons.search)
-                      : const Icon(Icons.cancel_outlined),
-                  onPressed: () {
-                    setState(() {
-                      isSearch = !isSearch;
-                    });
-                  },
+          appBar: AppBar(
+            title: !isSearch ? const Text("Friends List") : null,
+            backgroundColor: Colors.grey[400],
+            actions: [
+              if (isSearch) ...[
+                const Icon(
+                  Icons.person,
+                  size: 35,
                 ),
+                const SizedBox(
+                  width: 15,
+                ),
+                const _Search()
               ],
-            ),
-            body: BlocBuilder<FriendBloc, FriendState>(
-              builder: (context, state) => Center(
-                child: ListView.builder(
-                  itemCount: state.friends.length,
-                  itemBuilder: (context, index) => FriendCard(
-                      state.friends[index].name, state.friends[index].lastName),
-                ),
+              IconButton(
+                icon: !isSearch
+                    ? const Icon(Icons.search)
+                    : const Icon(Icons.cancel_outlined),
+                onPressed: () {
+                  setState(() {
+                    isSearch = !isSearch;
+                  });
+                },
+              ),
+            ],
+          ),
+          body: BlocBuilder<FriendBloc, FriendState>(
+            builder: (context, state) => Center(
+              child: ListView.builder(
+                itemCount: state.friends.length,
+                itemBuilder: (context, index) => FriendCard(
+                    state.friends[index].name, state.friends[index].lastName),
               ),
             ),
-            floatingActionButton: const CreateCard()),
+          ),
+          floatingActionButton: const CreateCard(),
+        ),
       ),
     );
   }
 }
 
-class Search extends StatelessWidget {
-  const Search({super.key});
+class _Search extends StatelessWidget {
+  const _Search();
 
   @override
   Widget build(BuildContext context) {

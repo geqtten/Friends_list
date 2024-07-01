@@ -46,12 +46,13 @@ void dialogBuilder(BuildContext context, TextEditingController nameController,
                       height: 45,
                     ),
                     ElevatedButton(
-                      onPressed: () => friendBloc.add(
-                        FriendEvent.create(
+                      onPressed: () {
+                        friendBloc.add(FriendEvent.create(
                           nameController.text,
                           lastNameController.text,
-                        ),
-                      ),
+                        ));
+                        Navigator.pop(context);
+                      },
                       child: const Text(
                         "Confirm",
                         style: TextStyle(color: Colors.black87),

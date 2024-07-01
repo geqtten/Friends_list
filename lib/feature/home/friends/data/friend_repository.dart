@@ -10,7 +10,7 @@ abstract class FriendRepository {
 }
 
 class FriendRepositoryImpl implements FriendRepository {
-  FriendRepositoryImpl(this._dataSource);
+  FriendRepositoryImpl(FriendDataSource dataSource) : _dataSource = dataSource;
 
   final FriendDataSource _dataSource;
 

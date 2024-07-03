@@ -11,6 +11,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       (event, emit) => event.map(
         create: (e) => _create(e, emit),
         loadAllFriends: (e) => _loadAllFriends(e, emit),
+        deleteFriend: (e) => _deleteFriend(e, emit),
       ),
     );
   }
@@ -41,6 +42,22 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         emit(FriendState.loaded(
           friends: allFriends,
         ));
+      }
+    } on Object catch (e) {
+      emit(
+        FriendState.idle(
+          error: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> _deleteFriend(
+      FriendsEvent$DeleteFriend event, Emitter<FriendState> emit) async {
+    try {
+      {
+        await friendRepository.deleteFriend(event.id);
+        _loadAllFriends;
       }
     } on Object catch (e) {
       emit(

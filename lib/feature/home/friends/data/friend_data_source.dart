@@ -8,6 +8,7 @@ abstract class FriendDataSource {
     required String name,
     required String lastName,
   });
+  Future<int> deleteFriend(int id);
   Future<List<Friend>> getAllFriends();
 }
 
@@ -21,11 +22,18 @@ class FriendDao extends DatabaseAccessor<AppDatabase>
   Future<Friend> create({
     required name,
     required lastName,
-  }) {
-    return db.into(db.friends).insertReturning(FriendsCompanion.insert(
+  }) async {
+    return await db.into(db.friends).insertReturning(FriendsCompanion.insert(
           name: name,
           lastName: lastName,
         ));
+  }
+
+  @override
+  Future<int> deleteFriend(int id) async {
+    // Delete user with id 1
+    return await (db.delete(db.friends)..where((tbl) => tbl.id.equals(id)))
+        .go();
   }
 
   @override

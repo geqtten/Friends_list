@@ -61,8 +61,14 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, state) => Center(
               child: ListView.builder(
                 itemCount: state.friends.length,
-                itemBuilder: (context, index) => FriendCard(
-                    state.friends[index].name, state.friends[index].lastName),
+                itemBuilder: (context, index) => Dismissible(
+                  onDismissed: (direction) => friendBloc.add(
+                    FriendEvent.deleteFriend(state.friends[index].id),
+                  ),
+                  key: UniqueKey(),
+                  child: FriendCard(
+                      state.friends[index].name, state.friends[index].lastName),
+                ),
               ),
             ),
           ),

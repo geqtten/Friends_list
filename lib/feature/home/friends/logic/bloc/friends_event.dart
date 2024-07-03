@@ -9,6 +9,8 @@ sealed class FriendEvent extends _$UserEventBase {
       FriendEvent$Create;
 
   const factory FriendEvent.loadAllFriends() = FriendsEvent$LoadAllFriends;
+
+  const factory FriendEvent.deleteFriend(int id) = FriendsEvent$DeleteFriend;
 }
 
 final class FriendEvent$Create extends FriendEvent {
@@ -22,6 +24,12 @@ final class FriendsEvent$LoadAllFriends extends FriendEvent {
   const FriendsEvent$LoadAllFriends() : super();
 }
 
+final class FriendsEvent$DeleteFriend extends FriendEvent {
+  const FriendsEvent$DeleteFriend(this.id) : super();
+
+  final int id;
+}
+
 ///
 abstract base class _$UserEventBase {
   const _$UserEventBase();
@@ -30,10 +38,12 @@ abstract base class _$UserEventBase {
   R map<R>({
     required PatternMatch<R, FriendEvent$Create> create,
     required PatternMatch<R, FriendsEvent$LoadAllFriends> loadAllFriends,
+    required PatternMatch<R, FriendsEvent$DeleteFriend> deleteFriend,
   }) =>
       switch (this) {
         final FriendEvent$Create s => create(s),
         final FriendsEvent$LoadAllFriends s => loadAllFriends(s),
+        final FriendsEvent$DeleteFriend s => deleteFriend(s),
         _ => throw AssertionError(),
       };
 
@@ -42,19 +52,23 @@ abstract base class _$UserEventBase {
     required R Function() orElse,
     PatternMatch<R, FriendEvent$Create>? create,
     PatternMatch<R, FriendsEvent$LoadAllFriends>? loadAllFriends,
+    PatternMatch<R, FriendsEvent$DeleteFriend>? deleteFriend,
   }) =>
       map<R>(
         create: create ?? (_) => orElse(),
         loadAllFriends: loadAllFriends ?? (_) => orElse(),
+        deleteFriend: deleteFriend ?? (_) => orElse(),
       );
 
   ///
   R? mapOrNull<R>({
     PatternMatch<R, FriendEvent$Create>? create,
     PatternMatch<R, FriendsEvent$LoadAllFriends>? loadAllFriends,
+    PatternMatch<R, FriendsEvent$DeleteFriend>? deleteFriend,
   }) =>
       map<R?>(
         create: create ?? (_) => null,
         loadAllFriends: loadAllFriends ?? (_) => null,
+        deleteFriend: deleteFriend ?? (_) => null,
       );
 }

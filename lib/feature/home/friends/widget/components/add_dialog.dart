@@ -47,7 +47,7 @@ void dialogBuilder(BuildContext context, TextEditingController nameController,
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        friendBloc.add(FriendEvent.create(
+                        friendBloc.add(FriendEvent.createFriend(
                           nameController.text,
                           lastNameController.text,
                         ));

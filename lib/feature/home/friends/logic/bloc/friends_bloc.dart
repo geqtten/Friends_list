@@ -9,24 +9,28 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       : super(const FriendState.idle()) {
     on<FriendEvent>(
       (event, emit) => event.map(
-        create: (e) => _create(e, emit),
+        create: (e) => _createFriend(e, emit),
         loadAllFriends: (e) => _loadAllFriends(e, emit),
         deleteFriend: (e) => _deleteFriend(e, emit),
+        updateFriend: (e) => _updateFriend(e, emit),
       ),
     );
   }
 
   final FriendRepository friendRepository;
 
-  Future<void> _create(
-      FriendEvent$Create event, Emitter<FriendState> emit) async {
+  Future<void> _createFriend(
+      FriendsEvent$CreateFriend event, Emitter<FriendState> emit) async {
     try {
-      final newFriend = await friendRepository.create(
+      final newFriend = await friendRepository.createFriend(
         name: event.name,
         lastName: event.lastName,
       );
       final allFriend = await friendRepository.getAllFriends();
-      emit(FriendState.loaded(friends: allFriend, friend: newFriend));
+      emit(FriendState.loaded(
+        friends: allFriend,
+        friend: newFriend,
+      ));
     } on Object catch (e) {
       emit(
         FriendState.idle(error: e.toString()),
@@ -57,6 +61,37 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
     try {
       {
         await friendRepository.deleteFriend(event.id);
+        _loadAllFriends;
+      }
+    } on Object catch (e) {
+      emit(
+        FriendState.idle(
+          error: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> _updateFriend(
+      FriendsEvent$UpdateFriend event, Emitter<FriendState> emit) async {
+    try {
+      await friendRepository.updateFriend(
+        name: event.name,
+        lastName: event.lastName,
+        id: event.id,
+      );
+      final allFriend = await friendRepository.getAllFriends();
+      emit(FriendState.loaded(
+        friends: allFriend,
+        // friend: updateFriend,
+      ));
+
+      {
+        await friendRepository.updateFriend(
+          name: event.name,
+          lastName: event.lastName,
+          id: event.id,
+        );
         _loadAllFriends;
       }
     } on Object catch (e) {

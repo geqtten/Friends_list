@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_bloc.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_event.dart';
 import 'package:friends_list/feature/home/friends/widget/components/add_dialog.dart';
@@ -36,36 +37,36 @@ class _FriendCardState extends State<FriendCard> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Dismissible(
-      key: UniqueKey(),
-      onDismissed: (direction) {
-        if (direction == DismissDirection.startToEnd) {
-          renameDialog(
-            context,
-            renameNameController,
-            renameLastNameController,
-            widget.id,
-            widget.friendBloc,
-          );
-        } else if (direction == DismissDirection.endToStart) {
-          widget.friendBloc.add(FriendEvent.deleteFriend(widget.id));
-        }
-      },
-      child: Card(
-        child: ListTile(
-          title: Text(
-            "${widget.name} ${widget.lastName}",
-            style: const TextStyle(fontSize: 25),
-          ),
-          leading: const Icon(
-            Icons.person,
-            size: 35,
+  Widget build(BuildContext context) => Dismissible(
+        key: UniqueKey(),
+        onDismissed: (direction) {
+          if (direction == DismissDirection.startToEnd) {
+            renameDialog(
+              context,
+              renameNameController,
+              renameLastNameController,
+              widget.id,
+              widget.friendBloc,
+            );
+          } else if (direction == DismissDirection.endToStart) {
+            widget.friendBloc.add(
+              FriendEvent.deleteFriend(widget.id),
+            );
+          }
+        },
+        child: Card(
+          child: ListTile(
+            title: Text(
+              "${widget.name} ${widget.lastName}",
+              style: const TextStyle(fontSize: 25),
+            ),
+            leading: const Icon(
+              Icons.person,
+              size: 35,
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class CreateCard extends StatefulWidget {

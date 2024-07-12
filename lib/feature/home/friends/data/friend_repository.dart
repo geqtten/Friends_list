@@ -2,12 +2,18 @@ import 'package:friends_list/feature/home/friends/data/friend_data_source.dart';
 import 'package:friends_list/feature/home/friends/model/friend_entity.dart';
 
 abstract class FriendRepository {
-  Future<FriendEntity> create({
+  Future<FriendEntity> createFriend({
     required String name,
     required String lastName,
   });
 
   Future<int> deleteFriend(int id);
+
+  Future<int> updateFriend({
+    required String name,
+    required String lastName,
+    required int id,
+  });
 
   Future<List<FriendEntity>> getAllFriends();
 }
@@ -18,11 +24,11 @@ class FriendRepositoryImpl implements FriendRepository {
   final FriendDataSource _dataSource;
 
   @override
-  Future<FriendEntity> create({
+  Future<FriendEntity> createFriend({
     required String name,
     required String lastName,
   }) async {
-    final newFriend = await _dataSource.create(
+    final newFriend = await _dataSource.createFriend(
       name: name,
       lastName: lastName,
     );
@@ -48,4 +54,16 @@ class FriendRepositoryImpl implements FriendRepository {
     final deleteFriend = await _dataSource.deleteFriend(id);
     return deleteFriend;
   }
+
+  @override
+  Future<int> updateFriend({
+    required int id,
+    required String name,
+    required String lastName,
+  }) async =>
+      await _dataSource.updateFriend(
+        id: id,
+        name: name,
+        lastName: lastName,
+      );
 }

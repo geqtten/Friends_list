@@ -5,16 +5,24 @@ import 'package:friends_list/core/utils/extensions/pattern_match.dart';
 sealed class FriendEvent extends _$UserEventBase {
   const FriendEvent();
 
-  const factory FriendEvent.create(String name, String lastName) =
-      FriendEvent$Create;
+  const factory FriendEvent.createFriend(
+    String name,
+    String lastName,
+  ) = FriendsEvent$CreateFriend;
 
   const factory FriendEvent.loadAllFriends() = FriendsEvent$LoadAllFriends;
 
   const factory FriendEvent.deleteFriend(int id) = FriendsEvent$DeleteFriend;
+
+  const factory FriendEvent.updateFriend(
+    String name,
+    String lastName,
+    int id,
+  ) = FriendsEvent$UpdateFriend;
 }
 
-final class FriendEvent$Create extends FriendEvent {
-  const FriendEvent$Create(this.name, this.lastName) : super();
+final class FriendsEvent$CreateFriend extends FriendEvent {
+  const FriendsEvent$CreateFriend(this.name, this.lastName) : super();
 
   final String name;
   final String lastName;
@@ -30,45 +38,59 @@ final class FriendsEvent$DeleteFriend extends FriendEvent {
   final int id;
 }
 
+final class FriendsEvent$UpdateFriend extends FriendEvent {
+  const FriendsEvent$UpdateFriend(this.name, this.lastName, this.id) : super();
+
+  final int id;
+  final String name;
+  final String lastName;
+}
+
 ///
 abstract base class _$UserEventBase {
   const _$UserEventBase();
 
   ///
   R map<R>({
-    required PatternMatch<R, FriendEvent$Create> create,
+    required PatternMatch<R, FriendsEvent$CreateFriend> create,
     required PatternMatch<R, FriendsEvent$LoadAllFriends> loadAllFriends,
     required PatternMatch<R, FriendsEvent$DeleteFriend> deleteFriend,
+    required PatternMatch<R, FriendsEvent$UpdateFriend> updateFriend,
   }) =>
       switch (this) {
-        final FriendEvent$Create s => create(s),
+        final FriendsEvent$CreateFriend s => create(s),
         final FriendsEvent$LoadAllFriends s => loadAllFriends(s),
         final FriendsEvent$DeleteFriend s => deleteFriend(s),
+        final FriendsEvent$UpdateFriend s => updateFriend(s),
         _ => throw AssertionError(),
       };
 
   ///
   R maybeMap<R>({
     required R Function() orElse,
-    PatternMatch<R, FriendEvent$Create>? create,
+    PatternMatch<R, FriendsEvent$CreateFriend>? create,
     PatternMatch<R, FriendsEvent$LoadAllFriends>? loadAllFriends,
     PatternMatch<R, FriendsEvent$DeleteFriend>? deleteFriend,
+    PatternMatch<R, FriendsEvent$UpdateFriend>? updateFriend,
   }) =>
       map<R>(
         create: create ?? (_) => orElse(),
         loadAllFriends: loadAllFriends ?? (_) => orElse(),
         deleteFriend: deleteFriend ?? (_) => orElse(),
+        updateFriend: updateFriend ?? (_) => orElse(),
       );
 
   ///
   R? mapOrNull<R>({
-    PatternMatch<R, FriendEvent$Create>? create,
+    PatternMatch<R, FriendsEvent$CreateFriend>? create,
     PatternMatch<R, FriendsEvent$LoadAllFriends>? loadAllFriends,
     PatternMatch<R, FriendsEvent$DeleteFriend>? deleteFriend,
+    PatternMatch<R, FriendsEvent$UpdateFriend>? updateFriend,
   }) =>
       map<R?>(
         create: create ?? (_) => null,
         loadAllFriends: loadAllFriends ?? (_) => null,
         deleteFriend: deleteFriend ?? (_) => null,
+        updateFriend: updateFriend ?? (_) => null,
       );
 }

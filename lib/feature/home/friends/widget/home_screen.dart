@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_bloc.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_event.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_state.dart';
-import 'package:friends_list/feature/home/friends/widget/components/create_card.dart';
+import 'package:friends_list/feature/home/friends/widget/components/friend_card.dart';
 import 'package:friends_list/feature/initialization/widget/dependencies_scope.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
@@ -16,6 +17,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late final FriendBloc friendBloc;
   late bool isSearch;
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,18 +69,33 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, state) => Center(
               child: ListView.builder(
                 itemCount: state.friends.length,
-                itemBuilder: (context, index) => Dismissible(
-                  onDismissed: (direction) => friendBloc.add(
-                    FriendEvent.deleteFriend(state.friends[index].id),
-                  ),
-                  key: UniqueKey(),
-                  child: FriendCard(
-                      state.friends[index].name, state.friends[index].lastName),
+                itemBuilder: (context, index) => FriendCard(
+                  state.friends[index].name,
+                  state.friends[index].lastName,
+                  state.friends[index].id,
+                  friendBloc,
                 ),
               ),
             ),
           ),
           floatingActionButton: const CreateCard(),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.grey[400],
+            selectedIconTheme: const IconThemeData(color: Colors.black87),
+            iconSize: 30,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Friends',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+          ),
         ),
       ),
     );

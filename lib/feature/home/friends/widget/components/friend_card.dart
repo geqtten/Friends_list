@@ -37,6 +37,18 @@ class _FriendCardState extends State<FriendCard> {
 
   @override
   Widget build(BuildContext context) => Dismissible(
+        background: const ColoredBox(
+          color: Colors.grey,
+          child: Icon(
+            Icons.create,
+          ),
+        ),
+        secondaryBackground: const ColoredBox(
+          color: Colors.red,
+          child: Icon(
+            Icons.delete,
+          ),
+        ),
         key: UniqueKey(),
         onDismissed: (direction) {
           if (direction == DismissDirection.startToEnd) {
@@ -96,9 +108,9 @@ class _CreateCardState extends State<CreateCard> {
               context, nameController, lastNameController, friendBloc);
         },
         style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            iconColor: Colors.grey[300]),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        ),
         child: const Text(
           "+",
           style: TextStyle(fontSize: 30, color: Colors.black87),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_bloc.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_event.dart';
 import 'package:friends_list/feature/home/friends/widget/components/add_dialog.dart';
@@ -91,22 +90,18 @@ class _CreateCardState extends State<CreateCard> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return ElevatedButton(
-      onPressed: () {
-        return dialogBuilder(
-            context, nameController, lastNameController, friendBloc);
-      },
-      style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          iconColor: Colors.grey[300]),
-      child: const Text(
-        "+",
-        style: TextStyle(fontSize: 30, color: Colors.black87),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => ElevatedButton(
+        onPressed: () {
+          return dialogBuilder(
+              context, nameController, lastNameController, friendBloc);
+        },
+        style: ElevatedButton.styleFrom(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            iconColor: Colors.grey[300]),
+        child: const Text(
+          "+",
+          style: TextStyle(fontSize: 30, color: Colors.black87),
+        ),
+      );
 }

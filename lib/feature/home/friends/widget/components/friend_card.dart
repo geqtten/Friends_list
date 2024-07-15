@@ -37,15 +37,17 @@ class _FriendCardState extends State<FriendCard> {
 
   @override
   Widget build(BuildContext context) => Dismissible(
-        background: const ColoredBox(
+        background: Container(
           color: Colors.grey,
-          child: Icon(
+          alignment: Alignment.centerLeft,
+          child: const Icon(
             Icons.create,
           ),
         ),
-        secondaryBackground: const ColoredBox(
+        secondaryBackground: Container(
           color: Colors.red,
-          child: Icon(
+          alignment: Alignment.centerRight,
+          child: const Icon(
             Icons.delete,
           ),
         ),

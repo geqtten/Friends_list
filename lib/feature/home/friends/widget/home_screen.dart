@@ -81,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
           floatingActionButton: const CreateCard(),
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: Colors.grey[400],
-            selectedIconTheme: const IconThemeData(color: Colors.black87),
             iconSize: 30,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -94,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
             currentIndex: _selectedIndex,
+            selectedItemColor: Colors.black87,
             onTap: _onItemTapped,
           ),
         ),

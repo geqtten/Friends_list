@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:friends_list/feature/home/friends/widget/components/settings_screen.dart';
+import 'package:friends_list/feature/home/friends/widget/settings_screen.dart';
 import 'package:friends_list/feature/home/friends/widget/friends_screen.dart';
 
 class HomeScreen extends StatefulWidget {

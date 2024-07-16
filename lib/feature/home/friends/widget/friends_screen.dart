@@ -43,7 +43,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   size: 35,
                 ),
                 const SizedBox(
-                  width: 15,
+                  width: 10,
                 ),
                 const _Search()
               ],

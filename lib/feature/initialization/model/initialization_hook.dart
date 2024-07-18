@@ -1,5 +1,4 @@
-import 'package:friends_list/feature/initialization/logic/initialization_processor.dart';
-
+import '../logic/initialization_processor.dart';
 import 'dependencies.dart';
 
 abstract interface class InitializationHook {

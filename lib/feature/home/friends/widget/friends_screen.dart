@@ -4,6 +4,7 @@ import 'package:friends_list/feature/home/friends/logic/bloc/friends_bloc.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_event.dart';
 import 'package:friends_list/feature/home/friends/logic/bloc/friends_state.dart';
 import 'package:friends_list/feature/home/friends/widget/components/friend_card.dart';
+import 'package:friends_list/feature/home/friends/widget/components/search_friends.dart';
 import 'package:friends_list/feature/initialization/widget/dependencies_scope.dart';
 
 class FriendsScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 const SizedBox(
                   width: 10,
                 ),
-                const _Search()
+                const Search()
               ],
               IconButton(
                 icon: !isSearch
@@ -73,26 +74,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
             ),
           ),
           floatingActionButton: const CreateCard(),
-        ),
-      ),
-    );
-  }
-}
-
-class _Search extends StatelessWidget {
-  const _Search();
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 30,
-      width: 300,
-      child: TextField(
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: "Search",
-          fillColor: Colors.black12,
-          filled: true,
         ),
       ),
     );

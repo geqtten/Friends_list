@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:friends_list/feature/home/friends/widget/home_screen.dart';
+import 'package:friends_list/feature/auth/widget/auth_screen.dart';
 
 class AppContext extends StatefulWidget {
   const AppContext({
@@ -24,7 +24,7 @@ class _AppContextState extends State<AppContext> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const AuthScreen(),
     );
   }
 }

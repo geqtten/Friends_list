@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:friends_list/feature/auth/widget/auth_screen.dart';
+import 'package:friends_list/core/components/router/router.dart';
 
 class AppContext extends StatefulWidget {
   const AppContext({
@@ -18,13 +18,14 @@ class _AppContextState extends State<AppContext> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final router = AppRouter();
+    return MaterialApp.router(
+      routerConfig: router.router,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const AuthScreen(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:friends_list/feature/auth/widget/auth_scope.dart';
+import 'package:friends_list/feature/auth/widget/auth_sign_up.dart';
 import 'package:friends_list/feature/home/friends/widget/home_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:friends_list/feature/auth/widget/auth_screen.dart';
@@ -17,6 +18,10 @@ class AppRouter {
       GoRoute(
         path: "/",
         builder: (context, _) => const AuthScreen(),
+      ),
+      GoRoute(
+        path: "/signUp",
+        builder: (context, _) => const AuthSignUp(),
       ),
       GoRoute(
         path: "/home",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friends_list/core/widget/scope_widgets.dart';
+import 'package:friends_list/feature/auth/widget/auth_scope.dart';
 
 import '../../initialization/model/dependencies.dart';
 import '../../initialization/widget/dependencies_scope.dart';
@@ -20,7 +21,9 @@ class App extends StatelessWidget {
           ScopeProvider(
             buildScope: (child) => DependenciesScope(
               dependencies: result.dependencies,
-              child: child,
+              child: AuthScope(
+                child: child,
+              ),
             ),
           ),
         ],

@@ -46,7 +46,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 const SizedBox(
                   width: 10,
                 ),
-                const Search()
+                const SearchFriends(),
               ],
               IconButton(
                 icon: !isSearch

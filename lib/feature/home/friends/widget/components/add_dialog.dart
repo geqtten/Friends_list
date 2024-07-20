@@ -19,12 +19,16 @@ void dialogBuilder(BuildContext context, TextEditingController nameController,
               TextFormField(
                 controller: nameController,
                 decoration: const InputDecoration(
-                    border: UnderlineInputBorder(), hintText: "Enter name"),
+                  border: UnderlineInputBorder(),
+                  hintText: "Enter name",
+                ),
               ),
               TextFormField(
                 controller: lastNameController,
                 decoration: const InputDecoration(
-                    border: UnderlineInputBorder(), hintText: "Enter lastname"),
+                  border: UnderlineInputBorder(),
+                  hintText: "Enter lastname",
+                ),
               ),
               const SizedBox(
                 height: 8,

@@ -20,7 +20,7 @@ class AppRouter {
         builder: (context, _) => const AuthScreen(),
       ),
       GoRoute(
-        path: "/sign Up",
+        path: "/signUp",
         builder: (context, _) => const AuthSignUp(),
       ),
       GoRoute(

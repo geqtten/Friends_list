@@ -33,8 +33,10 @@ class AuthRepositoryImpl implements AuthRepository {
   final UserDataSource _dataSource;
 
   @override
-  Future<UserEntity> createUser(
-      {required String login, required String password}) async {
+  Future<UserEntity> createUser({
+    required String login,
+    required String password,
+  }) async {
     final createdUser =
         await _dataSource.createUser(login: login, password: password);
 

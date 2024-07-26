@@ -9,10 +9,8 @@ class AppRouter {
     redirect: (context, state) {
       final auth = AuthScope.of(context);
       final hasLogin = auth.hasLogin;
-      if (hasLogin) {
-        return "/home";
-      }
-      return "/";
+      hasLogin ? "/home" : "/";
+      return null;
     },
     routes: [
       GoRoute(

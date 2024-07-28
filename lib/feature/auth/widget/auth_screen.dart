@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friends_list/feature/auth/widget/auth_scope.dart';
-
-import 'package:go_router/go_router.dart';
+import 'package:friends_list/feature/auth/widget/auth_sign_up.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({
@@ -93,7 +92,11 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      context.go('/signUp');
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const AuthSignUp(),
+                        ),
+                      );
                     },
                     child: const Text('Sign up'),
                   ),

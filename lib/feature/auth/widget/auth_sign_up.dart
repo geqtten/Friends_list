@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friends_list/feature/auth/widget/auth_scope.dart';
 
-import 'package:go_router/go_router.dart';
-
 class AuthSignUp extends StatefulWidget {
   const AuthSignUp({
     super.key,
@@ -35,12 +33,6 @@ class _AuthSignUpState extends State<AuthSignUp> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            (context).go("/");
-          },
-        ),
         backgroundColor: Colors.grey[400],
       ),
       body: Center(

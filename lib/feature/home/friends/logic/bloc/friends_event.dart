@@ -19,6 +19,8 @@ sealed class FriendEvent extends _$UserEventBase {
     String lastName,
     int id,
   ) = FriendsEvent$UpdateFriend;
+  const factory FriendEvent.getFriendsByName(String name) =
+      FriendsEvent$GetFriendsByName;
 }
 
 final class FriendsEvent$CreateFriend extends FriendEvent {
@@ -46,6 +48,12 @@ final class FriendsEvent$UpdateFriend extends FriendEvent {
   final String lastName;
 }
 
+final class FriendsEvent$GetFriendsByName extends FriendEvent {
+  const FriendsEvent$GetFriendsByName(this.name) : super();
+
+  final String name;
+}
+
 ///
 abstract base class _$UserEventBase {
   const _$UserEventBase();
@@ -56,12 +64,14 @@ abstract base class _$UserEventBase {
     required PatternMatch<R, FriendsEvent$LoadAllFriends> loadAllFriends,
     required PatternMatch<R, FriendsEvent$DeleteFriend> deleteFriend,
     required PatternMatch<R, FriendsEvent$UpdateFriend> updateFriend,
+    required PatternMatch<R, FriendsEvent$GetFriendsByName> getFriendsByName,
   }) =>
       switch (this) {
         final FriendsEvent$CreateFriend s => create(s),
         final FriendsEvent$LoadAllFriends s => loadAllFriends(s),
         final FriendsEvent$DeleteFriend s => deleteFriend(s),
         final FriendsEvent$UpdateFriend s => updateFriend(s),
+        final FriendsEvent$GetFriendsByName s => getFriendsByName(s),
         _ => throw AssertionError(),
       };
 
@@ -72,12 +82,14 @@ abstract base class _$UserEventBase {
     PatternMatch<R, FriendsEvent$LoadAllFriends>? loadAllFriends,
     PatternMatch<R, FriendsEvent$DeleteFriend>? deleteFriend,
     PatternMatch<R, FriendsEvent$UpdateFriend>? updateFriend,
+    PatternMatch<R, FriendsEvent$GetFriendsByName>? getFriendsByName,
   }) =>
       map<R>(
         create: create ?? (_) => orElse(),
         loadAllFriends: loadAllFriends ?? (_) => orElse(),
         deleteFriend: deleteFriend ?? (_) => orElse(),
         updateFriend: updateFriend ?? (_) => orElse(),
+        getFriendsByName: getFriendsByName ?? (_) => orElse(),
       );
 
   ///
@@ -86,11 +98,13 @@ abstract base class _$UserEventBase {
     PatternMatch<R, FriendsEvent$LoadAllFriends>? loadAllFriends,
     PatternMatch<R, FriendsEvent$DeleteFriend>? deleteFriend,
     PatternMatch<R, FriendsEvent$UpdateFriend>? updateFriend,
+    PatternMatch<R, FriendsEvent$GetFriendsByName>? getFriendsByName,
   }) =>
       map<R?>(
         create: create ?? (_) => null,
         loadAllFriends: loadAllFriends ?? (_) => null,
         deleteFriend: deleteFriend ?? (_) => null,
         updateFriend: updateFriend ?? (_) => null,
+        getFriendsByName: getFriendsByName ?? (_) => null,
       );
 }

@@ -13,6 +13,7 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         loadAllFriends: (e) => _loadAllFriends(e, emit),
         deleteFriend: (e) => _deleteFriend(e, emit),
         updateFriend: (e) => _updateFriend(e, emit),
+        getFriendsByName: (e) => _getFriendsByName(e, emit),
       ),
     );
   }
@@ -94,6 +95,23 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
         );
         _loadAllFriends;
       }
+    } on Object catch (e) {
+      emit(
+        FriendState.idle(
+          error: e.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<void> _getFriendsByName(
+      FriendsEvent$GetFriendsByName event, Emitter<FriendState> emit) async {
+    try {
+      final result = await friendRepository.getFriendsByName(event.name);
+
+      emit(FriendState.loaded(
+        friends: result,
+      ));
     } on Object catch (e) {
       emit(
         FriendState.idle(

@@ -6,6 +6,7 @@ abstract class FriendRepository {
     required String name,
     required String lastName,
   });
+  Future<List<FriendEntity>> getFriendsByName(String name);
 
   Future<int> deleteFriend(int id);
 
@@ -66,4 +67,18 @@ class FriendRepositoryImpl implements FriendRepository {
         name: name,
         lastName: lastName,
       );
+
+  @override
+  Future<List<FriendEntity>> getFriendsByName(String name) async {
+    final result = await _dataSource.getFriendsByName(name);
+
+    if (result.isNotEmpty) {
+      return result
+          .map(
+            (dto) => FriendEntity.fromModel(dto),
+          )
+          .toList();
+    }
+    return [];
+  }
 }

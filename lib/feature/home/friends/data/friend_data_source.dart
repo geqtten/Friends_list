@@ -1,4 +1,3 @@
-import 'dart:core';
 import 'package:drift/drift.dart';
 import 'package:friends_list/core/components/database/database.dart';
 import 'package:friends_list/core/components/database/src/app_database.dart';
@@ -17,6 +16,7 @@ abstract class FriendDataSource {
     required String name,
     required String lastName,
   });
+  Future<List<Friend>> getFriendsByName(String name);
 }
 
 @DriftAccessor(tables: [Friends])
@@ -48,7 +48,6 @@ class FriendDao extends DatabaseAccessor<AppDatabase>
     required String name,
     required String lastName,
   }) async {
-// Conditional update for users
     return await (db.update(db.friends)..where((tbl) => tbl.id.equals(id)))
         .write(FriendsCompanion(name: Value(name), lastName: Value(lastName)));
   }
@@ -57,4 +56,12 @@ class FriendDao extends DatabaseAccessor<AppDatabase>
   Future<List<Friend>> getAllFriends() async {
     return await db.select(db.friends).get();
   }
+
+  Future insertFriends(Insertable<Friend> friend) {
+    return into(friends).insert(friend);
+  }
+
+  @override
+  Future<List<Friend>> getFriendsByName(String name) async =>
+      await (select(db.friends)..where((tbl) => tbl.name.contains(name))).get();
 }

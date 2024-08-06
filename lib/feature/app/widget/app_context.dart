@@ -22,10 +22,7 @@ class _AppContextState extends State<AppContext> {
     return MaterialApp.router(
       routerConfig: router.router,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

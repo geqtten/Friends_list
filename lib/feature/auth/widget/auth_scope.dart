@@ -12,10 +12,10 @@ abstract interface class AuthController {
   /// Signs in the user with the given [email] and [password].
   void login(String email, String password);
   void signUp(String email, String password);
+  void deleteAccount(int id);
   void logout();
   void getLogin();
   bool get hasLogin;
-  bool get hasLogout;
   String? get error;
   AuthState get authState;
   UserEntity? get loginUser;
@@ -82,6 +82,11 @@ class _AuthScopeState extends State<AuthScope> implements AuthController {
       );
 
   @override
+  void deleteAccount(int id) {
+    _authBloc.add(AuthEvent.delete(id));
+  }
+
+  @override
   void logout() => _authBloc.add(AuthEvent.logout(_authState.user!.id));
 
   @override
@@ -89,14 +94,6 @@ class _AuthScopeState extends State<AuthScope> implements AuthController {
 
   @override
   bool get hasLogin {
-    if (_authState.isLogin != null) {
-      return _authState.isLogin!;
-    }
-    return false;
-  }
-
-  @override
-  bool get hasLogout {
     if (_authState.isLogin != null) {
       return _authState.isLogin!;
     }
